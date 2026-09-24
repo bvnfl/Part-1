@@ -1,0 +1,35 @@
+<script setup>
+import { computed, onMounted, ref } from 'vue'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const query = ref(''), results = ref([]), bookings = ref([]), users = ref([])
+const searched = ref(false), loading = ref(false), error = ref('')
+const selectedTrip = ref(null), editingId = ref(null), form = ref({ user_id: '', guests: 1 })
+const title = computed(() => editingId.value ? 'Update reservation' : 'Complete your booking')
+async function request(path, options = {}) { const response = await fetch(`${API_URL}${path}`, { headers: { 'Content-Type': 'application/json' }, ...options }); if (!response.ok) { const body = await response.json().catch(() => ({})); throw new Error(body.detail || 'Something went wrong. Please try again.') } return response.status === 204 ? null : response.json() }
+async function search() { if (!query.value.trim()) return; loading.value = true; error.value = ''; try { results.value = await request(`/api/hotels/search?name=${encodeURIComponent(query.value.trim())}`); searched.value = true } catch (reason) { error.value = reason.message } finally { loading.value = false } }
+async function refreshBookings() { bookings.value = await request('/api/bookings') }
+function startBooking(stay) { selectedTrip.value = stay; editingId.value = null; form.value = { user_id: users.value[0]?.user_id || '', guests: 1 }; window.setTimeout(() => document.querySelector('#booking-panel')?.scrollIntoView({ behavior: 'smooth' })) }
+function startEdit(booking) { selectedTrip.value = booking; editingId.value = booking.booking_id; form.value = { user_id: booking.user_id, guests: booking.guests }; window.setTimeout(() => document.querySelector('#booking-panel')?.scrollIntoView({ behavior: 'smooth' })) }
+function cancelForm() { selectedTrip.value = null; editingId.value = null }
+async function saveBooking() { error.value = ''; try { if (editingId.value) await request(`/api/bookings/${editingId.value}`, { method: 'PUT', body: JSON.stringify(form.value) }); else await request('/api/bookings', { method: 'POST', body: JSON.stringify({ ...form.value, trip_id: selectedTrip.value.trip_id }) }); cancelForm(); await refreshBookings() } catch (reason) { error.value = reason.message } }
+async function removeBooking(booking) { if (!window.confirm(`Cancel the reservation at ${booking.hotel_name}?`)) return; try { await request(`/api/bookings/${booking.booking_id}`, { method: 'DELETE' }); await refreshBookings() } catch (reason) { error.value = reason.message } }
+function formatDate(value) { return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${value}T00:00:00Z`)) }
+onMounted(async () => { try { ;[users.value, bookings.value] = await Promise.all([request('/api/users'), request('/api/bookings')]) } catch (reason) { error.value = `Could not reach the travel service. ${reason.message}` } })
+</script>
+
+<template>
+  <header class="site-header"><a class="brand" href="#">Roam<span>Ready</span></a><nav aria-label="Primary navigation"><a href="#discover">Discover</a><a href="#trips">My trips</a></nav></header>
+  <main>
+    <section id="discover" class="hero"><div class="eyebrow">Curated stays, simple plans</div><h1>Find somewhere<br><em>worth going.</em></h1><p>Search hand-picked hotels, compare available dates, and keep every reservation in one calm place.</p>
+      <form class="search-card" @submit.prevent="search"><label for="hotel-search">Where would you like to stay?</label><div class="search-row"><input id="hotel-search" v-model="query" placeholder="Try “Harbor” or “Juniper”" autocomplete="off"><button class="primary" :disabled="loading || !query.trim()">{{ loading ? 'Searching…' : 'Search stays' }}</button></div></form>
+    </section>
+    <p v-if="error" class="notice error" role="alert">{{ error }}</p>
+    <section v-if="searched" class="content-section" aria-live="polite"><div class="section-heading"><div><span class="kicker">Search results</span><h2>Available stays</h2></div><span>{{ results.length }} {{ results.length === 1 ? 'option' : 'options' }}</span></div>
+      <div v-if="results.length" class="table-shell"><table><thead><tr><th>Hotel</th><th>Location</th><th>Dates</th><th>Nightly</th><th>Rooms</th><th></th></tr></thead><tbody><tr v-for="stay in results" :key="stay.trip_id"><td><strong>{{ stay.hotel_name }}</strong><small>Stay #{{ stay.trip_id }}</small></td><td>{{ stay.city }}, {{ stay.country }}</td><td>{{ formatDate(stay.check_in) }}<small>to {{ formatDate(stay.check_out) }}</small></td><td class="price">${{ Number(stay.price_per_night).toFixed(0) }}</td><td>{{ stay.rooms_available }}</td><td><button class="text-button" @click="startBooking(stay)">Book stay →</button></td></tr></tbody></table></div>
+      <div v-else class="empty"><span>⌁</span><h3>No stays found</h3><p>Try a shorter hotel name or check your spelling.</p></div>
+    </section>
+    <section v-if="selectedTrip" id="booking-panel" class="booking-panel"><div><span class="kicker">{{ editingId ? 'Edit booking' : 'Almost there' }}</span><h2>{{ title }}</h2><p>{{ selectedTrip.hotel_name }} · {{ formatDate(selectedTrip.check_in) }} to {{ formatDate(selectedTrip.check_out) }}</p></div><form @submit.prevent="saveBooking"><label>Traveler<select v-model.number="form.user_id" required><option v-for="user in users" :key="user.user_id" :value="user.user_id">{{ user.name }}</option></select></label><label>Guests<input v-model.number="form.guests" type="number" min="1" max="8" required></label><div class="form-actions"><button type="button" class="secondary" @click="cancelForm">Cancel</button><button class="primary">{{ editingId ? 'Save changes' : 'Confirm booking' }}</button></div></form></section>
+    <section id="trips" class="content-section trips"><div class="section-heading"><div><span class="kicker">Travel history</span><h2>Your reservations</h2></div><span>{{ bookings.length }} total</span></div><div v-if="bookings.length" class="trip-grid"><article v-for="booking in bookings" :key="booking.booking_id" class="trip-card"><div class="trip-top"><span class="status">{{ booking.status }}</span><span>#{{ booking.booking_id }}</span></div><h3>{{ booking.hotel_name }}</h3><p>{{ booking.city }}</p><dl><div><dt>Check in</dt><dd>{{ formatDate(booking.check_in) }}</dd></div><div><dt>Traveler</dt><dd>{{ booking.traveler_name }}</dd></div><div><dt>Guests</dt><dd>{{ booking.guests }}</dd></div></dl><div class="card-actions"><button class="text-button" @click="startEdit(booking)">Edit</button><button class="danger" @click="removeBooking(booking)">Cancel trip</button></div></article></div><div v-else class="empty"><h3>No reservations yet</h3><p>Your booked stays will appear here.</p></div></section>
+  </main>
+  <footer><span>RoamReady</span><p>A local travel planner built with Vue, FastAPI, and SQLite.</p></footer>
+</template>
