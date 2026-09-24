@@ -61,15 +61,15 @@ def list_bookings(repository: TravelRepository = Depends(get_repository)) -> lis
 @app.post("/api/bookings", response_model=BookingRead, status_code=status.HTTP_201_CREATED)
 def create_booking(booking: BookingCreate, repository: TravelRepository = Depends(get_repository)) -> dict[str, object]:
     try:
-        return repository.create_booking(booking.user_id, booking.trip_id, booking.guests)
+        return repository.create_booking(booking.user_id, booking.trip_id)
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
 
 
 @app.put("/api/bookings/{booking_id}", response_model=BookingRead)
-def update_booking(booking_id: int, booking: BookingUpdate, repository: TravelRepository = Depends(get_repository)) -> dict[str, object]:
+def update_booking(booking_id: str, booking: BookingUpdate, repository: TravelRepository = Depends(get_repository)) -> dict[str, object]:
     try:
-        return repository.update_booking(booking_id, booking.user_id, booking.guests)
+        return repository.update_booking(booking_id, booking.user_id, booking.status)
     except LookupError as error:
         raise HTTPException(status_code=404, detail=str(error)) from error
     except ValueError as error:
@@ -77,7 +77,7 @@ def update_booking(booking_id: int, booking: BookingUpdate, repository: TravelRe
 
 
 @app.delete("/api/bookings/{booking_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_booking(booking_id: int, repository: TravelRepository = Depends(get_repository)) -> Response:
+def delete_booking(booking_id: str, repository: TravelRepository = Depends(get_repository)) -> Response:
     if not repository.delete_booking(booking_id):
         raise HTTPException(status_code=404, detail="Booking not found")
     return Response(status_code=status.HTTP_204_NO_CONTENT)

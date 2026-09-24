@@ -20,16 +20,17 @@ Manual browser evidence to record before submission:
 
 | Action | Expected | Observed | Evidence |
 | --- | --- | --- | --- |
-| Search `Harbor` | Two Harbor Light Hotel stays appear | `[record result]` | `[link screenshot]` |
-| Search `Missing` | Clear no-results message appears | `[record result]` | `[link screenshot]` |
-| Create a booking | New reservation appears in history | `[record result]` | `[link screenshot]` |
-| Refresh/restart | Created booking remains | `[record result]` | `[link screenshot]` |
-| Edit booking | Traveler/guest changes remain after refresh | `[record result]` | `[link screenshot]` |
-| Delete booking | Reservation disappears and stays gone | `[record result]` | `[link screenshot]` |
+| Search `Boston` | Trips T001, T002, T009, and T010 appear | Automated data check passed; browser check pending | `[link screenshot]` |
+| Search `Miami` | Clear no-results message appears | Automated data check passed; browser check pending | `[link screenshot]` |
+| View seeded history | Six supplied reservations appear | Six reservations appeared with IDs B001-B006 | [Initial history](submissions/part-2/screenshots/initial-booking-history.png) |
+| Create a booking | New reservation appears in history | Confirmed booking B007 appeared as the seventh record | [Created B007](submissions/part-2/screenshots/booking-created-b007.png) |
+| Refresh/read again | Created booking remains | API persistence test passed and B007 remained available | [Persisted B007](submissions/part-2/screenshots/booking-created-b007.png) |
+| Edit booking | Traveler/status changes remain | B007 status changed from confirmed to cancelled | [Edited B007](submissions/part-2/screenshots/booking-edited-cancelled-b007.png) |
+| Delete booking | Reservation disappears | B007 disappeared and the total returned to six | [Deleted B007](submissions/part-2/screenshots/booking-deleted.png) |
 
 ### Project context and next steps
 
-See [README.md](README.md), [AGENTS.md](AGENTS.md), and [handoffs/current.md](handoffs/current.md). Before submission, replace the included demo CSVs with the protected instructor data pack, complete the evidence fields above, and add accessible screenshot links.
+See [README.md](README.md), [AGENTS.md](AGENTS.md), and [handoffs/current.md](handoffs/current.md). The official instructor data pack is installed. Before submission, complete the remaining browser evidence fields and add accessible screenshot links.
 
 ## Plus, a demo video
 

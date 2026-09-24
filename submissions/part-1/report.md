@@ -18,10 +18,10 @@ I manually reviewed the changed source files and checked the application behavio
 
 | Action | Expected result | Observed result | Evidence |
 | --- | --- | --- | --- |
-| Search for `Harbor` | Two available stays at Harbor Light Hotel appear in the results table. | `[RECORD YOUR BROWSER RESULT]` | `[PASTE A REPOSITORY SCREENSHOT LINK]` |
-| Search for `Missing` | A clear "No stays found" message appears. | `[RECORD YOUR BROWSER RESULT]` | `[PASTE A REPOSITORY SCREENSHOT LINK]` |
+| Search for `Boston` | Trips `T001`, `T002`, `T009`, and `T010` appear in the results table. | Four options appeared with the expected trip IDs, hotels, dates, nightly rates, and stay prices. | [Boston search results](screenshots/boston-search-results.png) |
+| Search for `Miami` | A clear "No stays found" message appears. | Zero options appeared with a clear "No stays found" message. | [Miami no-results state](screenshots/miami-no-results.png) |
 
-The official course data pack is distributed through the protected Canvas course. Before submission, I will replace the included schema-compatible demo CSV files with the supplied `hotels.csv` and `trips.csv`, rerun both browser checks, and update the observed-result and evidence cells above.
+The official course data pack is installed. Its text IDs, column names, dates, and relationships are preserved. The browser results matched the supplied data guide and are documented in the linked screenshots above.
 
 ## Project context and next steps
 

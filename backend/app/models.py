@@ -1,45 +1,49 @@
 from datetime import date
 from decimal import Decimal
-from pydantic import BaseModel, Field
+from typing import Literal
+
+from pydantic import BaseModel
 
 
 class HotelStay(BaseModel):
-    hotel_id: int
+    hotel_id: str
     hotel_name: str
     city: str
-    country: str
-    trip_id: int
+    state: str
+    trip_id: str
+    trip_name: str
     check_in: date
     check_out: date
-    price_per_night: Decimal
-    rooms_available: int
+    nights: int
+    nightly_rate_usd: Decimal
+    stay_price_usd: Decimal
 
 
 class UserRead(BaseModel):
-    user_id: int
-    name: str
-    email: str
+    user_id: str
+    display_name: str
 
 
 class BookingCreate(BaseModel):
-    user_id: int
-    trip_id: int
-    guests: int = Field(ge=1, le=8)
+    user_id: str
+    trip_id: str
 
 
 class BookingUpdate(BaseModel):
-    user_id: int
-    guests: int = Field(ge=1, le=8)
+    user_id: str
+    status: Literal["confirmed", "cancelled"]
 
 
 class BookingRead(BaseModel):
-    booking_id: int
-    user_id: int
+    booking_id: str
+    user_id: str
     traveler_name: str
-    trip_id: int
+    trip_id: str
+    trip_name: str
     hotel_name: str
     city: str
+    state: str
     check_in: date
     check_out: date
-    guests: int
+    booked_on: date
     status: str

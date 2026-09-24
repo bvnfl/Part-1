@@ -4,7 +4,7 @@
 
 - Vue owns search, booking forms, history cards, loading/error/empty states, and browser confirmation before deletion.
 - FastAPI defines explicit Pydantic request/response contracts and CORS access for the Vite development server.
-- `TravelRepository` joins `hotels.csv` to `trips.csv` by `hotel_id`. SQLite stores seeded users and bookings, with foreign keys and guest-count validation.
+- `TravelRepository` seeds all four official CSV files into SQLite once, preserves their text IDs, and joins hotels, trips, users, and bookings through foreign keys.
 - A booking references a CSV trip by `trip_id`; enriched history combines SQLite rows with the current CSV stay data.
 
 ## Checked
@@ -16,4 +16,4 @@
 
 ## Remaining limitations and next task
 
-The repository contains schema-compatible demo CSVs, not the protected instructor data pack. Replace them with the official four CSV files, delete `backend/data/travel.db` to reseed, then record manual browser checks and screenshots. The next task is to add the repository URL, final commit hashes, screenshot links, and demo-video link to `report.md`.
+The official data pack is installed and its documented Boston/Miami controls pass. The next task is to run the application in a browser, capture accessible screenshots, record the observed results, add the final Part 2 commit, and link the demo video in the submission report.
