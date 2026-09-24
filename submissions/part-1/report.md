@@ -2,9 +2,9 @@
 
 ## Repository and commit
 
-GitHub repository: `[PASTE YOUR PUBLIC GITHUB REPOSITORY URL]`
+GitHub repository: <https://github.com/bvnfl/Part-1>
 
-Exact Part 1 commit: `[PASTE THE PART 1 COMMIT HASH]`
+Exact Part 1 commit: [`72bab0d00e6180301610d2802d20f8ab1fbf0a1a`](https://github.com/bvnfl/Part-1/commit/72bab0d00e6180301610d2802d20f8ab1fbf0a1a)
 
 ## Implementation
 

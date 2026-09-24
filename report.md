@@ -4,8 +4,8 @@
 
 ### Repository and commit
 
-Repository URL: `[add public GitHub repository URL]`  
-Part 1 commit: `[add exact reviewed Part 1 commit hash]`  
+Repository URL: <https://github.com/bvnfl/Part-1>  
+Part 1 commit: [`72bab0d00e6180301610d2802d20f8ab1fbf0a1a`](https://github.com/bvnfl/Part-1/commit/72bab0d00e6180301610d2802d20f8ab1fbf0a1a)  
 Part 2 commit: `[add exact reviewed Part 2 commit hash]`
 
 ### Implementation
