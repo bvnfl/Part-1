@@ -16,8 +16,8 @@ The source files and interface were manually reviewed. The frontend production b
 
 | Action | Expected result | Observed result | Evidence |
 | --- | --- | --- | --- |
-| Search for `Boston` | Trips `T001`, `T002`, `T009`, and `T010` appear. | Automated data check passed; browser observation pending. | `[PASTE A REPOSITORY SCREENSHOT LINK]` |
-| Search for `Miami` | A clear "No stays found" message appears. | Automated data check passed; browser observation pending. | `[PASTE A REPOSITORY SCREENSHOT LINK]` |
+| Search for `Boston` | Trips `T001`, `T002`, `T009`, and `T010` appear. | Four options appeared with the expected trip IDs, hotels, dates, nightly rates, and stay prices. | [Boston search results](../part-1/screenshots/boston-search-results.png) |
+| Search for `Miami` | A clear "No stays found" message appears. | Zero options appeared with a clear "No stays found" message. | [Miami no-results state](../part-1/screenshots/miami-no-results.png) |
 | View the seeded booking history | Six supplied reservations appear with IDs `B001` through `B006`. | Six reservations appeared with the expected traveler, status, trip, and date information. | [Initial booking history](screenshots/initial-booking-history.png) |
 | Create a booking | The new reservation appears in booking history with a unique ID. | A seventh confirmed reservation appeared as `B007` for Demo Traveler 1. | [Created booking B007](screenshots/booking-created-b007.png) |
 | Refresh the page and read the database again | The newly created booking remains available. | The API persistence test passed and the created record remained available for the next update action. | [Persisted B007 record](screenshots/booking-created-b007.png) |
@@ -29,12 +29,12 @@ Project documentation is available in the repository:
 - [README setup and run instructions](../../README.md)
 - [Project-specific agent instructions](../../AGENTS.md)
 - [Current design and handoff note](../../handoffs/current.md)
-- `[ADD A LINK TO YOUR SELECTED PROMPTS IF REQUIRED]`
+- [Selected development prompts](../selected-prompts.md)
 
-The official protected course data is installed. The remaining submission tasks are to run the final browser verification, add accessible screenshot links, and insert the final Part 2 commit information above.
+The official protected course data is installed. Browser verification, automated tests, accessible screenshot evidence, and exact commit information are included above.
 
 ## Plus, a demo video
 
-Demo video, under three minutes: `[PASTE AN ACCESSIBLE VIDEO URL]`
+Demo video: Not included.
 
 The video should show a user searching for a hotel, viewing a no-result search, creating a booking, refreshing to demonstrate persistence, editing the booking, and deleting it.

@@ -30,6 +30,6 @@ Project documentation is available in the repository:
 - [README setup and run instructions](../../README.md)
 - [Project-specific agent instructions](../../AGENTS.md)
 - [Current design and handoff note](../../handoffs/current.md)
-- `[ADD A LINK TO YOUR SELECTED PROMPTS IF REQUIRED]`
+- [Selected development prompts](../selected-prompts.md)
 
 The Part 1 scope supports hotel-name search backed by related CSV records. The next task is Part 2: seed SQLite with the demo travelers and bookings, add persistent booking history, and implement create, read, update, and delete operations through FastAPI and Vue.
