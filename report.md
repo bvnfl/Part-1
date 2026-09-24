@@ -6,7 +6,7 @@
 
 Repository URL: <https://github.com/bvnfl/Part-1>  
 Part 1 commit: [`72bab0d00e6180301610d2802d20f8ab1fbf0a1a`](https://github.com/bvnfl/Part-1/commit/72bab0d00e6180301610d2802d20f8ab1fbf0a1a)  
-Part 2 commit: `[add exact reviewed Part 2 commit hash]`
+Part 2 commit: [`b978be2a000c674299e1eb51a11e715c97f1ca24`](https://github.com/bvnfl/Part-1/commit/b978be2a000c674299e1eb51a11e715c97f1ca24)
 
 ### Implementation
 

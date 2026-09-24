@@ -6,7 +6,7 @@ GitHub repository: <https://github.com/bvnfl/Part-1>
 
 Exact Part 1 commit: [`72bab0d00e6180301610d2802d20f8ab1fbf0a1a`](https://github.com/bvnfl/Part-1/commit/72bab0d00e6180301610d2802d20f8ab1fbf0a1a)
 
-Exact Part 2 commit: `[PASTE THE PART 2 COMMIT HASH]`
+Exact Part 2 commit: [`b978be2a000c674299e1eb51a11e715c97f1ca24`](https://github.com/bvnfl/Part-1/commit/b978be2a000c674299e1eb51a11e715c97f1ca24)
 
 RoamReady retains the Part 1 hotel search flow: Vue sends a hotel-name query to FastAPI, and the Python repository reads `hotels.csv` and `trips.csv`, joins the records through `hotel_id`, and returns matching stays. Results appear in a readable table, and searches with no matches display a clear empty state.
 
